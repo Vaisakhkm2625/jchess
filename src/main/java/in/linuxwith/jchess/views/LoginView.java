@@ -24,6 +24,12 @@ public class LoginView {
 		
 		
         layout.getChildren().addAll(usernameLabel,usernameField,loginButton);
+        
+        loginButton.setOnAction(e -> {
+            if (!usernameField.getText().isEmpty()) {
+                controller.showChessboardView();
+            }
+        });
 		
 		scene = new Scene(layout,400,300);
 	}
