@@ -13,6 +13,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+//import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 
 public class ChessBoardView {
 	
@@ -22,6 +25,9 @@ public class ChessBoardView {
 	
 	private int selectedRow = -1;
     private int selectedCol = -1;
+    
+    
+    private static final int ICON_SIZE = 30;
 
 	
 	public ChessBoardView(AppController controller) {
@@ -35,47 +41,6 @@ public class ChessBoardView {
 		scene = new Scene(gridPane, 640,640);
 	}
 	
-	/*
-	private void drawBoard(GridPane gridPane) {
-		SimpleStringProperty[][] state =  this.chessBoardState.getBoardState();
-		
-		
-		for(int r = 0; r < 8; r++) {
-			for(int c = 0; c < 8; c++) {
-
-				StackPane cell = new StackPane();
-
-				Rectangle tile= new Rectangle(80,80);
-				tile.setFill((r+c)%2 == 0? Color.WHITE: Color.BLUE);
-				
-				Text pieceText = new Text();
-				
-				pieceText.setStyle("-fx-font-family: 'FontAwesome'; -fx-font-size: 36px;");
-
-				i
-                pieceText.textProperty().bind(state[r][c]);
-
-                cell.getChildren().addAll(tile, pieceText);
-               
-                int row =r;
-                int col =c;
-
-				cell.setOnMouseClicked(e -> handleCellClick(row,col));
-                
-                gridPane.add(cell, c, r);
-			}
-			
-		}
-		
-	}
-	
-	
-	private void handleCellClick(int row, int col) {
-		//this.chessBoardState.getCell(row, col).set("helo");
-
-	}
-	
-	*/
 	
 	private void drawBoard(GridPane gridPane) {
 	    ChessCell[][] state = chessBoardState.getBoardState();
@@ -87,11 +52,19 @@ public class ChessBoardView {
 	            Rectangle tile = new Rectangle(80, 80);
 	            tile.setFill((row + col) % 2 == 0 ? Color.BEIGE : Color.BROWN);
 
-	            Text pieceText = new Text();
-	            pieceText.setStyle("-fx-font-family: 'FontAwesome'; -fx-font-size: 36px;");
+	            //Text pieceText = new Text();
+	            //pieceText.setStyle("-fx-font-family: 'FontAwesome'; -fx-font-size: 36px;");
+
+	            //Text pieceText = new FontIcon();
+	            FontIcon pieceText = new FontIcon();
+	            pieceText.setIconSize(ICON_SIZE);
 
 	            if (state[row][col] != null) {
-	                pieceText.textProperty().bind(state[row][col].pieceIconProperty());
+	                //pieceText.textProperty().bind(state[row][col].pieceIconProperty());
+	            	//pieceText.iconCodeProperty().bind(state[row][col].pieceIconProperty());
+	                //pieceText.iconCodeProperty().bind()
+	                pieceText.iconCodeProperty().set(FontAwesomeRegular.ADDRESS_BOOK);
+
 	            }
 
 	            cell.getChildren().addAll(tile, pieceText);
@@ -126,12 +99,11 @@ public class ChessBoardView {
 	            // Move piece to target
 
 	            state[selectedRow][selectedCol] = null; // Clear source cell
-	            for(ChessCell[] cl: state) {
+	            /*for(ChessCell[] cl: state) {
 					for(ChessCell c: cl) {
 						System.out.println(c);
 					}
-	            	
-	            }
+	            }*/
 	        //}
 	        //highlightValidCells(false); // Clear highlights
 	        //validMoves.clear();

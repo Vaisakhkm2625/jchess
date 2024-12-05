@@ -41,7 +41,7 @@ public class ChessBoardState {
 		    boardState[6][i] = new ChessCell(new Piece("Pawn", "White", "\uf443"));
 		}
 
-		boardState[0][0] = new ChessCell(new Piece("Rook", "Black", "\uf447"));
+		boardState[0][0] = new ChessCell(new Piece("Rook", "Black", "fas-cloud"));
 		boardState[0][7] = new ChessCell(new Piece("Rook", "Black", "\uf447"));
 		boardState[7][0] = new ChessCell(new Piece("Rook", "White", "\uf447"));
 		boardState[7][7] = new ChessCell(new Piece("Rook", "White", "\uf447"));
