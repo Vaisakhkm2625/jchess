@@ -6,11 +6,11 @@ import javafx.collections.ObservableList;
 
 public class ChessBoardState {
 	
-	private final ObservableList<ObservableList<SimpleStringProperty>> boardState;
+	private final SimpleStringProperty[][] boardState;
 	
 	public ChessBoardState() {
 		
-		boardState = FXCollections.observableArrayList();
+		boardState = new SimpleStringProperty[8][8];
 
 		initializeBoard();
 	}
@@ -28,20 +28,20 @@ public class ChessBoardState {
 	                {"wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"}	
 		};
 		
-		for (String[] row: initialState) {
-			
-			ObservableList<SimpleStringProperty> observableRow = FXCollections.observableArrayList();
-			
-			for(String cell: row) {
-				observableRow.add(new SimpleStringProperty(cell));
-			}
+		for (int row = 0; row < initialState.length; row++) {
+            for (int col = 0; col < initialState[row].length; col++) {
+                boardState[row][col] = new SimpleStringProperty(initialState[row][col]);
+            }
+        }
 
-			boardState.add(observableRow);
-		}
 	}
 
 	
-	public ObservableList<ObservableList<SimpleStringProperty>> getBoardState() {
+	public SimpleStringProperty[][] getBoardState() {
 		return this.boardState;
+	}
+	
+	 public SimpleStringProperty getCell(int row, int col) {
+	        return boardState[row][col];
 	}
 }

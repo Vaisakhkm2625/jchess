@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -29,15 +30,11 @@ public class ChessBoardView {
 	}
 	
 	private void drawBoard(GridPane gridPane) {
-		ObservableList<ObservableList<SimpleStringProperty>> state =  this.chessBoardState.getBoardState();
+		SimpleStringProperty[][] state =  this.chessBoardState.getBoardState();
 		
-		System.out.println(state.size());
 		
-		for(int r = 0; r < state.size(); r++) {
-				System.out.println(state.get(r).size());
-			for(int c = 0; c < state.get(r).size(); c++) {
-
-
+		for(int r = 0; r < 8; r++) {
+			for(int c = 0; c < 8; c++) {
 
 				StackPane cell = new StackPane();
 
@@ -46,14 +43,25 @@ public class ChessBoardView {
 				
 				
 				Text pieceText = new Text();
-                pieceText.textProperty().bind(state.get(r).get(c));
+                pieceText.textProperty().bind(state[r][c]);
 
                 cell.getChildren().addAll(tile, pieceText);
+               
+                int row =r;
+                int col =c;
+
+				cell.setOnMouseClicked(e -> handleCellClick(row,col));
+                
                 gridPane.add(cell, c, r);
 			}
 			
 		}
 		
+		
+	}
+	
+	private void handleCellClick(int row, int col) {
+		this.chessBoardState.getCell(row, col).set("helo");
 		
 	}
 	
