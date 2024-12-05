@@ -37,30 +37,30 @@ public class ChessBoardState {
 		
 		// Initialize pawns
 		for (int i = 0; i < 8; i++) {
-		    boardState[1][i] = new ChessCell(new Piece("Pawn", "Black", "\uf443"));
-		    boardState[6][i] = new ChessCell(new Piece("Pawn", "White", "\uf443"));
+		    boardState[1][i] = new ChessCell(new Piece("Pawn", "Black", "♟"));
+		    boardState[6][i] = new ChessCell(new Piece("Pawn", "White", "♙"));
 		}
 
-		boardState[0][0] = new ChessCell(new Piece("Rook", "Black", "fas-cloud"));
-		boardState[0][7] = new ChessCell(new Piece("Rook", "Black", "\uf447"));
-		boardState[7][0] = new ChessCell(new Piece("Rook", "White", "\uf447"));
-		boardState[7][7] = new ChessCell(new Piece("Rook", "White", "\uf447"));
+		boardState[0][0] = new ChessCell(new Piece("Rook", "Black", "♜"));
+		boardState[0][7] = new ChessCell(new Piece("Rook", "Black", "♜"));
+		boardState[7][0] = new ChessCell(new Piece("Rook", "White", "♖"));
+		boardState[7][7] = new ChessCell(new Piece("Rook", "White", "♖"));
 
-		boardState[0][1] = new ChessCell(new Piece("Knight", "Black", "\uf441"));
-		boardState[0][6] = new ChessCell(new Piece("Knight", "Black", "\uf441"));
-		boardState[7][1] = new ChessCell(new Piece("Knight", "White", "\uf441"));
-		boardState[7][6] = new ChessCell(new Piece("Knight", "White", "\uf441"));
+		boardState[0][1] = new ChessCell(new Piece("Knight", "Black", "♞"));
+		boardState[0][6] = new ChessCell(new Piece("Knight", "Black", "♞"));
+		boardState[7][1] = new ChessCell(new Piece("Knight", "White", "♘"));
+		boardState[7][6] = new ChessCell(new Piece("Knight", "White", "♘"));
 
-		boardState[0][2] = new ChessCell(new Piece("Bishop", "Black", "\uf43a"));
-		boardState[0][5] = new ChessCell(new Piece("Bishop", "Black", "\uf43a"));
-		boardState[7][2] = new ChessCell(new Piece("Bishop", "White", "\uf43a"));
-		boardState[7][5] = new ChessCell(new Piece("Bishop", "White", "\uf43a"));
+		boardState[0][2] = new ChessCell(new Piece("Bishop", "Black", "♝"));
+		boardState[0][5] = new ChessCell(new Piece("Bishop", "Black", "♝"));
+		boardState[7][2] = new ChessCell(new Piece("Bishop", "White", "♗"));
+		boardState[7][5] = new ChessCell(new Piece("Bishop", "White", "♗"));
 
-		boardState[0][3] = new ChessCell(new Piece("Queen", "Black", "\uf445"));
-		boardState[7][3] = new ChessCell(new Piece("Queen", "White", "\uf445"));
+		boardState[0][3] = new ChessCell(new Piece("Queen", "Black", "♛"));
+		boardState[7][3] = new ChessCell(new Piece("Queen", "White", "♕"));
 
-		boardState[0][4] = new ChessCell(new Piece("King", "Black", "\uf43f"));
-		boardState[7][4] = new ChessCell(new Piece("King", "White", "\uf43f"));
+		boardState[0][4] = new ChessCell(new Piece("King", "Black", "♚"));
+		boardState[7][4] = new ChessCell(new Piece("King", "White", "♔"));
 
 		for (int row = 2; row < 6; row++) {
 		    for (int col = 0; col < 8; col++) {

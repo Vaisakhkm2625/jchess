@@ -60,10 +60,10 @@ public class ChessBoardView {
 	            pieceText.setIconSize(ICON_SIZE);
 
 	            if (state[row][col] != null) {
-	                //pieceText.textProperty().bind(state[row][col].pieceIconProperty());
+	                pieceText.textProperty().bind(state[row][col].pieceIconProperty());
 	            	//pieceText.iconCodeProperty().bind(state[row][col].pieceIconProperty());
 	                //pieceText.iconCodeProperty().bind()
-	                pieceText.iconCodeProperty().set(FontAwesomeRegular.ADDRESS_BOOK);
+	                //pieceText.iconCodeProperty().bind(.map(name -> Material.valueOf(name)));
 
 	            }
 
