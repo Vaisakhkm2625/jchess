@@ -19,12 +19,9 @@ public class AppController {
 		primaryStage.show();
 	}
 	
-	public void showChessboardView() {
-        ChessBoardView chessboardView = new ChessBoardView(this);
-        primaryStage.setScene(chessboardView.getScene());
-        primaryStage.setTitle("Chessboard");
-        primaryStage.show();
-    }
+	public void showGamePlayView( ) {
+		ChessBoardController ChessPieceCtroller = new ChessBoardController(this.primaryStage); 
+		
+	}
 	
-
 }

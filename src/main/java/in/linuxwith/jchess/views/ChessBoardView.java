@@ -1,6 +1,7 @@
 package in.linuxwith.jchess.views;
 
 import in.linuxwith.jchess.controllers.AppController;
+import in.linuxwith.jchess.controllers.ChessBoardController;
 import in.linuxwith.jchess.models.ChessBoardState;
 import in.linuxwith.jchess.models.ChessCell;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,110 +14,100 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
 //import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 
 public class ChessBoardView {
-	
+
 	private final Scene scene;
 	private final ChessBoardState chessBoardState;
-	
-	
-	private int selectedRow = -1;
-    private int selectedCol = -1;
-    
-    
-    private static final int ICON_SIZE = 30;
+	private final ChessBoardController controller;
 
-	
-	public ChessBoardView(AppController controller) {
-		
-		this.chessBoardState = new ChessBoardState();
-		
+	private int selectedRow = -1;
+	private int selectedCol = -1;
+
+	private static final int ICON_SIZE = 30;
+
+	public ChessBoardView(ChessBoardController controller,ChessBoardState chessBoardState,Stage stage) {
+
+		//this.chessBoardState = new ChessBoardState();
+		this.chessBoardState = chessBoardState;
+		this.controller = controller;
+
 		GridPane gridPane = new GridPane();
 		gridPane.setAlignment(Pos.CENTER);
-		
+
 		drawBoard(gridPane);
-		scene = new Scene(gridPane, 640,640);
+		scene = new Scene(gridPane, 640, 640);
 	}
-	
-	
+
 	private void drawBoard(GridPane gridPane) {
-	    ChessCell[][] state = chessBoardState.getBoardState();
+		ChessCell[][] state = chessBoardState.getBoardState();
 
-	    for (int row = 0; row < state.length; row++) {
-	        for (int col = 0; col < state[row].length; col++) {
-	            StackPane cell = new StackPane();
+		for (int row = 0; row < state.length; row++) {
+			for (int col = 0; col < state[row].length; col++) {
 
-	            Rectangle tile = new Rectangle(80, 80);
-	            tile.setFill((row + col) % 2 == 0 ? Color.BEIGE : Color.BROWN);
+				StackPane cell = new StackPane();
 
-	            //Text pieceText = new Text();
-	            //pieceText.setStyle("-fx-font-family: 'FontAwesome'; -fx-font-size: 36px;");
+				Rectangle tile = new Rectangle(80, 80);
 
-	            //Text pieceText = new FontIcon();
-	            FontIcon pieceText = new FontIcon();
-	            pieceText.setIconSize(ICON_SIZE);
+				
+				tile.fillProperty().bind(state[row][col].backgroundColorProperty());
+				
 
-	            if (state[row][col] != null) {
-	                pieceText.textProperty().bind(state[row][col].pieceIconProperty());
-	            	//pieceText.iconCodeProperty().bind(state[row][col].pieceIconProperty());
-	                //pieceText.iconCodeProperty().bind()
-	                //pieceText.iconCodeProperty().bind(.map(name -> Material.valueOf(name)));
+				// Text pieceText = new Text();
+				// pieceText.setStyle("-fx-font-family: 'FontAwesome'; -fx-font-size: 36px;");
 
-	            }
+				// Text pieceText = new FontIcon();
+				FontIcon pieceText = new FontIcon();
+				pieceText.setIconSize(ICON_SIZE);
 
-	            cell.getChildren().addAll(tile, pieceText);
+				pieceText.textProperty()
+						.set(state[row][col].getPiece() != null ? state[row][col].getPiece().getIcon() : "");
 
-	            int currentRow = row;
-	            int currentCol = col;
-
-	            // Handle click events
-	            cell.setOnMouseClicked(event -> handleCellClick(currentRow, currentCol));
-
-	            gridPane.add(cell, col, row);
-	        }
-	    }
-	}
-
-	private void handleCellClick(int row, int col) {
-	    ChessCell[][] state = chessBoardState.getBoardState();
-
-	    if (selectedRow == -1 && selectedCol == -1) {
-	        // Select a piece
-	        if (state[row][col] != null) {
-	            selectedRow = row;
-	            selectedCol = col;
-	            //validMoves.clear();
-	            //calculateValidMoves(row, col, state[row][col]);
-	            //highlightValidCells(true);
-	        }
-	    } else {
-	        // Move the piece if the cell is a valid move
-	        //if (validMoves.contains(new Pair<>(row, col))) {
-	            state[row][col].setPiece(state[selectedRow][selectedCol].getPiece());
-	            // Move piece to target
-
-	            state[selectedRow][selectedCol] = null; // Clear source cell
-	            /*for(ChessCell[] cl: state) {
-					for(ChessCell c: cl) {
-						System.out.println(c);
+				state[row][col].pieceProperty().addListener((observable, oldValue, newValue) -> {
+					if (newValue != null) {
+						pieceText.textProperty().set(newValue.getIcon());
+					} else {
+						pieceText.textProperty().set("");
 					}
-	            }*/
-	        //}
-	        //highlightValidCells(false); // Clear highlights
-	        //validMoves.clear();
-	        selectedRow = -1;
-	        selectedCol = -1; // Reset selection
-	    }
+				});
+				
+				
+
+				cell.getChildren().addAll(tile, pieceText);
+
+				int currentRow = row;
+				int currentCol = col;
+
+				// Handle click events
+				cell.setOnMouseClicked(event -> handleCellClick(currentRow, currentCol));
+
+				gridPane.add(cell, col, row);
+
+				// if (state[row][col] != null) {
+				// pieceText.iconCodeProperty().bind(state[row][col].pieceIconProperty());
+				// pieceText.iconCodeProperty().bind()
+				// pieceText.iconCodeProperty().bind(.map(name -> Material.valueOf(name)));
+				// }
+
+			}
+		}
 	}
+	
+	
 
-
+	//TODO: Sep this to a controller
+	//TODO: function to handle resetting of color
+	private void handleCellClick(int row, int col) {
+		this.controller.handleSelection(row,col);
+	}
 	
 	public Scene getScene() {
 		return this.scene;
 	}
-	
 
 }

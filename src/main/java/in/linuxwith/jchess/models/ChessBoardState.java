@@ -3,6 +3,7 @@ package in.linuxwith.jchess.models;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
 
 public class ChessBoardState {
 	
@@ -28,50 +29,54 @@ public class ChessBoardState {
 	                {"wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP"},
 	                {"wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"}	
 		};
-		
 		for (int row = 0; row < initialState.length; row++) {
             for (int col = 0; col < initialState[row].length; col++) {
                 boardState[row][col] = new SimpleStringProperty(initialState[row][col]);
             }
-        }*/
+        }
+		*/
 		
-		// Initialize pawns
-		for (int i = 0; i < 8; i++) {
-		    boardState[1][i] = new ChessCell(new Piece("Pawn", "Black", "♟"));
-		    boardState[6][i] = new ChessCell(new Piece("Pawn", "White", "♙"));
+		for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                boardState[row][col] = new ChessCell();
+				boardState[row][col].backgroundColorProperty().set((row + col) % 2 == 0 ? Color.BEIGE : Color.BROWN); 
+            }
+        }
+
+	    for (int i = 0; i < 8; i++) {
+		    boardState[1][i].setPiece(new Piece(PieceType.PAWN, PieceColor.BLACK, "♟"));
+		    boardState[6][i].setPiece(new Piece(PieceType.PAWN, PieceColor.WHITE, "♙"));
 		}
+		boardState[0][0].setPiece(new Piece(PieceType.ROOK,   PieceColor.BLACK, "♜")); 
+		boardState[0][7].setPiece(new Piece(PieceType.ROOK,   PieceColor.BLACK, "♜")); 
+		boardState[7][0].setPiece(new Piece(PieceType.ROOK,   PieceColor.WHITE, "♖")); 
+		boardState[7][7].setPiece(new Piece(PieceType.ROOK,   PieceColor.WHITE, "♖")); 
+		boardState[0][1].setPiece(new Piece(PieceType.KNIGHT, PieceColor.BLACK, "♞")); 
+		boardState[0][6].setPiece(new Piece(PieceType.KNIGHT, PieceColor.BLACK, "♞")); 
+		boardState[7][1].setPiece(new Piece(PieceType.KNIGHT, PieceColor.WHITE, "♘")); 
+		boardState[7][6].setPiece(new Piece(PieceType.KNIGHT, PieceColor.WHITE, "♘")); 
+		boardState[0][2].setPiece(new Piece(PieceType.BISHOP, PieceColor.BLACK, "♝")); 
+		boardState[0][5].setPiece(new Piece(PieceType.BISHOP, PieceColor.BLACK, "♝")); 
+		boardState[7][2].setPiece(new Piece(PieceType.BISHOP, PieceColor.WHITE, "♗")); 
+		boardState[7][5].setPiece(new Piece(PieceType.BISHOP, PieceColor.WHITE, "♗")); 
+		boardState[0][3].setPiece(new Piece(PieceType.QUEEN,  PieceColor.BLACK, "♛")); 
+		boardState[7][3].setPiece(new Piece(PieceType.QUEEN,  PieceColor.WHITE, "♕")); 
+		boardState[0][4].setPiece(new Piece(PieceType.KING,   PieceColor.BLACK, "♚")); 
+		boardState[7][4].setPiece(new Piece(PieceType.KING,   PieceColor.WHITE, "♔")); 
 
-		boardState[0][0] = new ChessCell(new Piece("Rook", "Black", "♜"));
-		boardState[0][7] = new ChessCell(new Piece("Rook", "Black", "♜"));
-		boardState[7][0] = new ChessCell(new Piece("Rook", "White", "♖"));
-		boardState[7][7] = new ChessCell(new Piece("Rook", "White", "♖"));
-
-		boardState[0][1] = new ChessCell(new Piece("Knight", "Black", "♞"));
-		boardState[0][6] = new ChessCell(new Piece("Knight", "Black", "♞"));
-		boardState[7][1] = new ChessCell(new Piece("Knight", "White", "♘"));
-		boardState[7][6] = new ChessCell(new Piece("Knight", "White", "♘"));
-
-		boardState[0][2] = new ChessCell(new Piece("Bishop", "Black", "♝"));
-		boardState[0][5] = new ChessCell(new Piece("Bishop", "Black", "♝"));
-		boardState[7][2] = new ChessCell(new Piece("Bishop", "White", "♗"));
-		boardState[7][5] = new ChessCell(new Piece("Bishop", "White", "♗"));
-
-		boardState[0][3] = new ChessCell(new Piece("Queen", "Black", "♛"));
-		boardState[7][3] = new ChessCell(new Piece("Queen", "White", "♕"));
-
-		boardState[0][4] = new ChessCell(new Piece("King", "Black", "♚"));
-		boardState[7][4] = new ChessCell(new Piece("King", "White", "♔"));
-
-		for (int row = 2; row < 6; row++) {
-		    for (int col = 0; col < 8; col++) {
-		        boardState[row][col] = new ChessCell(); 
-		    }
-		}
 		
-
+		//fill background colors
+		
+	}
+	
+	public void setDefaultColors() {
+		for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+				this.boardState[row][col].backgroundColorProperty().set((row + col) % 2 == 0 ? Color.BEIGE : Color.BROWN); 
+            }
+        }
 	}
 
-	
 	public ChessCell[][] getBoardState() {
 		return this.boardState;
 	}

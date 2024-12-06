@@ -2,83 +2,39 @@ package in.linuxwith.jchess.models;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.paint.Color;
+
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.javafx.Icon;
 
 public class ChessCell {
-    
-	private final SimpleStringProperty pieceType; // "Pawn", "Rook", etc.
-	private final SimpleStringProperty pieceColor; // "White" or "Black"
-	private final SimpleStringProperty pieceIcon; // FontAwesome Unicode or other representation
+    private final ObjectProperty<Piece> pieceProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<Color> backgroundColorProperty = new SimpleObjectProperty<Color>();
 
-    public ChessCell(Piece piece) {
-		this.pieceType = new SimpleStringProperty(piece.getType());
-		this.pieceColor = new SimpleStringProperty(piece.getColor());
-		this.pieceIcon = new SimpleStringProperty(piece.getIcon());
-    }
     
-    
-    public ChessCell() {
-		this.pieceType = new SimpleStringProperty();
-		this.pieceColor = new SimpleStringProperty();
-		this.pieceIcon = new SimpleStringProperty();
-
-    }
-    
-    public SimpleStringProperty pieceTypeProperty() {
-        return this.pieceType;
+    public ObjectProperty<Color> backgroundColorProperty() {
+        return backgroundColorProperty;
     }
 
-    public SimpleStringProperty pieceColorProperty() {
-        return this.pieceColor;
+    public void set(Color backgroundColorProperty) {
+        this.backgroundColorProperty.set(backgroundColorProperty);
     }
 
-    public SimpleStringProperty pieceIconProperty() {
-        return this.pieceIcon;
+    public Color getBackgroundColorProperty() {
+        return backgroundColorProperty.get();
     }
     
-    	
+    
+    public ObjectProperty<Piece> pieceProperty() {
+        return pieceProperty;
+    }
+
     public void setPiece(Piece piece) {
-		this.pieceType.set(piece.getType());
-		this.pieceColor.set(piece.getColor());
-		this.pieceIcon.set(piece.getIcon());
+        pieceProperty.set(piece);
     }
-    
-    
-    //TODO: should i return a copy?
+
     public Piece getPiece() {
-		return new Piece(this.pieceType.get(), this.pieceColor.get(), this.pieceIcon.get());
-    }
-    
-
-    public String getType() {
-        return this.pieceType.get();
+        return pieceProperty.get();
     }
 
-    public String getColor() {
-        return this.pieceColor.get();
-    }
-
-    public String getIcon() {
-        return this.pieceIcon.get();
-    }
-
-    public void setType(String type) {
-        this.pieceType.set(type);
-    }
-
-    public void setColor(String color) {
-        this.pieceColor.set(color);
-    }
-
-    public void setIcon(String icon) {
-        this.pieceIcon.set(icon);
-    }
-
-
-	@Override
-	public String toString() {
-		return "ChessCell [pieceType=" + this.pieceType.get() + ", pieceColor=" + this.pieceColor.get() + ", pieceIcon=" + this.pieceIcon.get() + "]";
-	}
-    
-    
 }

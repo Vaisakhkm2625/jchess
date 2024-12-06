@@ -27,7 +27,7 @@ public class LoginView {
         
         loginButton.setOnAction(e -> {
             if (!usernameField.getText().isEmpty()) {
-                controller.showChessboardView();
+                controller.showGamePlayView();
             }
         });
 		

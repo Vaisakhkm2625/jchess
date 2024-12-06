@@ -1,29 +1,38 @@
 package in.linuxwith.jchess.models;
 
+import org.kordamp.ikonli.javafx.Icon;
+
+
+import org.kordamp.ikonli.javafx.Icon;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
+
 public class Piece {
-    private String type; // "Pawn", "Rook", etc.
-    private String color; // "White" or "Black"
-    private String icon; // FontAwesome Unicode or other representation
+	
+	private PieceType type;
+	private PieceColor color;
+	private String  icon;
+	
+	public Piece(PieceType type, PieceColor color, String icon) {
+		this.type = type;
+		this.color = color;
+		this.icon = icon;
+	}
 
-    public Piece(String type, String color, String icon) {
-        this.type = new String(type);
-        this.color = new String(color);
-        this.icon = new String(icon);
-    }
-
-	public String getType() {
+	public PieceType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(PieceType type) {
 		this.type = type;
 	}
 
-	public String getColor() {
+	public PieceColor getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(PieceColor color) {
 		this.color = color;
 	}
 
@@ -35,4 +44,8 @@ public class Piece {
 		this.icon = icon;
 	}
 
+	
+	
+	
 }
+
