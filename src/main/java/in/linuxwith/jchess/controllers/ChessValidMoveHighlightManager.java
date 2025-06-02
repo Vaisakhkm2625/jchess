@@ -48,21 +48,21 @@ public class ChessValidMoveHighlightManager{
         // One step forward
         if (isInBounds(row + direction, col) && boardState[row + direction][col].getPiece() == null) {
             //boardState[row + direction][col].backgroundColorProperty().set(Color.LIGHTBLUE);
-			highlightCell(row + direction,col);
+			highlightCell(row + direction,col,isOpponentPiece(piece, row + direction,col));
 
             // Two steps forward from start row
             if (row == startRow && boardState[row + 2 * direction][col].getPiece() == null) {
                 //boardState[row + 2 * direction][col].backgroundColorProperty().set(Color.LIGHTBLUE);
-                highlightCell(row + 2 * direction,col);
+                highlightCell(row + 2 * direction,col,isOpponentPiece(piece,row + 2 * direction,col));
             }
         }
 
         // Capture diagonally
         if (isInBounds(row + direction, col - 1) && isOpponentPiece(piece, row + direction, col - 1)) {
-				highlightCell(row + direction,col - 1);
+				highlightCell(row + direction,col - 1,isOpponentPiece(piece,row + direction,col - 1));
         }
         if (isInBounds(row + direction, col + 1) && isOpponentPiece(piece, row + direction, col + 1)) {
-            highlightCell(row + direction,col + 1);
+            highlightCell(row + direction,col + 1,isOpponentPiece(piece, row + direction, col + 1));
         }
     }
 
@@ -84,11 +84,12 @@ public class ChessValidMoveHighlightManager{
         int r = row + rowDelta, c = col + colDelta;
         while (isInBounds(r, c)) {
             if (boardState[r][c].getPiece() == null) {
-                boardState[r][c].backgroundColorProperty().set(Color.LIGHTBLUE);
+                //boardState[r][c].backgroundColorProperty().set(Color.LIGHTBLUE);
+				highlightCell(r,c,isOpponentPiece(piece, r,c));
             } else {
                 if (isOpponentPiece(piece, r, c)) {
                     //boardState[r][c].backgroundColorProperty().set(Color.LIGHTBLUE);
-                    highlightCell(r,c);
+                    highlightCell(r,c,isOpponentPiece(piece, r,c));
                 }
                 break;
             }
@@ -103,7 +104,7 @@ public class ChessValidMoveHighlightManager{
             int r = row + delta[0], c = col + delta[1];
             if (isInBounds(r, c) && (boardState[r][c].getPiece() == null || isOpponentPiece(piece, r, c))) {
                 //boardState[r][c].backgroundColorProperty().set(Color.LIGHTBLUE);
-                highlightCell(r,c);
+                highlightCell(r,c,isOpponentPiece(piece, r, c));
             }
         }
     }
@@ -115,7 +116,7 @@ public class ChessValidMoveHighlightManager{
                     int r = row + dr, c = col + dc;
                     if (isInBounds(r, c) && (boardState[r][c].getPiece() == null || isOpponentPiece(piece, r, c))) {
                         //boardState[r][c].backgroundColorProperty().set(Color.LIGHTBLUE);
-						highlightCell(r,c);
+						highlightCell(r,c,isOpponentPiece(piece, r, c));
                     }
                 }
             }
@@ -132,11 +133,13 @@ public class ChessValidMoveHighlightManager{
                boardState[row][col].getPiece().getColor() != piece.getColor();
     }
     
-	 private void highlightCell(int row, int col) {
+    
+	 private void highlightCell(int row, int col,boolean redhighlight) {
 		    if (!isInBounds(row, col)) return;
 		    Color baseColor = ((row + col) % 2 == 0) ? Color.BEIGE : Color.BROWN;
-		    Color highlightColor = baseColor.interpolate(Color.LIGHTBLUE, 0.5);
-		    boardState[row][col].backgroundColorProperty().set(highlightColor);
+			Color highlightColor = baseColor.interpolate( redhighlight? Color.RED:Color.LIGHTBLUE, 0.5);
+			boardState[row][col].backgroundColorProperty().set(highlightColor);
+		    
 	}
     
     
