@@ -84,4 +84,6 @@ public class ChessBoardState {
 	 public ChessCell getCell(int row, int col) {
 	        return boardState[row][col];
 	}
+	 
+	 
 }

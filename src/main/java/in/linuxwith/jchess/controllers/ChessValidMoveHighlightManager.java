@@ -123,4 +123,13 @@ public class ChessValidMoveHighlightManager{
         return boardState[row][col].getPiece() != null &&
                boardState[row][col].getPiece().getColor() != piece.getColor();
     }
+    
+	 private void highlightCell(int row, int col) {
+		    if (!isInBounds(row, col)) return;
+		    Color baseColor = ((row + col) % 2 == 0) ? Color.BEIGE : Color.BROWN;
+		    Color highlightColor = baseColor.interpolate(Color.LIGHTBLUE, 0.5);
+		    boardState[row][col].backgroundColorProperty().set(highlightColor);
+	}
+    
+    
 }
